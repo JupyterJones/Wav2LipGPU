@@ -1,0 +1,10 @@
+librosa==0.8.0
+numpy==1.22.4
+opencv-contrib-python==4.6.0.66
+opencv-python==4.5.5.64
+opencv-python-headless==4.6.0.66
+torch==1.12.1
+torchvision==0.13.1
+numba==0.56.4
+tqdm==4.63.0
+
