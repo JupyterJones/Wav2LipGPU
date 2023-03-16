@@ -3,8 +3,8 @@ numpy
 opencv-contrib-python
 opencv-python
 opencv-python-headless
-torch
-torchvision
+torch.cuda
+torchvision.cuda
 numba
 tqdm
 
