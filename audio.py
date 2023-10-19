@@ -11,7 +11,7 @@ def load_wav(path, sr):
 
 def save_wav(wav, path, sr):
     wav *= 32767 / max(0.01, np.max(np.abs(wav)))
-    #proposed by @dsmiller
+    # proposed by @dsmiller
     wavfile.write(path, sr, wav.astype(np.int16))
 
 def save_wavenet_wav(wav, path, sr):
@@ -60,10 +60,9 @@ def _stft(y):
     else:
         return librosa.stft(y=y, n_fft=hp.n_fft, hop_length=get_hop_size(), win_length=hp.win_size)
 
-##########################################################
-#Those are only correct when using lws!!! (This was messing with Wavenet quality for a long time!)
+# Those are only correct when using lws!!! (This was messing with Wavenet quality for a long time!)
 def num_frames(length, fsize, fshift):
-    """Compute number of time frames of spectrogram
+    """Compute the number of time frames of the spectrogram
     """
     pad = (fsize - fshift)
     if length % fshift == 0:
@@ -71,7 +70,6 @@ def num_frames(length, fsize, fshift):
     else:
         M = (length + pad * 2 - fsize) // fshift + 2
     return M
-
 
 def pad_lr(x, fsize, fshift):
     """Compute left and right padding
@@ -81,8 +79,8 @@ def pad_lr(x, fsize, fshift):
     T = len(x) + 2 * pad
     r = (M - 1) * fshift + fsize - T
     return pad, pad + r
-##########################################################
-#Librosa correct padding
+
+# Librosa correct padding
 def librosa_pad_lr(x, fsize, fshift):
     return 0, (x.shape[0] // fshift + 1) * fshift - x.shape[0]
 
@@ -98,8 +96,8 @@ def _linear_to_mel(spectogram):
 def _build_mel_basis():
     assert hp.fmax <= hp.sample_rate // 2
     return librosa.filters.mel(hp.sample_rate, hp.n_fft, n_mels=hp.num_mels, **kwargs)
-    #return librosa.filters.mel(hp.sample_rate, hp.n_fft, n_mels=hp.num_mels,
-                               fmin=hp.fmin, fmax=hp.fmax)
+    # return librosa.filters.mel(hp.sample_rate, hp.n_fft, n_mels=hp.num_mels,
+    #                           fmin=hp.fmin, fmax=hp.fmax)
 
 def _amp_to_db(x):
     min_level = np.exp(hp.min_level_db / 20 * np.log(10))
